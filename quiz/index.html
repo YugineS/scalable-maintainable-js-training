@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		.question, .answer{
+			margin-bottom: 20px;
+		}
+		.question{
+			font-weight: 600;
+		}
+	</style>
+
+	<script type="text/javascript" src="js/lib/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="js/quiz-plugin.js"></script>
+	<script type="text/javascript" src="js/result-plugin.js"></script>
+    <title>Quiz</title>
+</head>
+
+<body>
+	<script>
+		$(function() {
+			
+		    $.getJSON("data/questions.json", function(data) {
+				$("#quiz-container").quiz({
+					questions : data,
+					complete : function(score)
+					{
+						$.getJSON("data/results.json", function(data){
+							$("#quiz-container").quizresult({data : data, score : score});
+						});
+					}
+				});
+			});
+		});
+	</script>
+	<div id="quiz-container"/>
+
+</body>
+
+</html>
